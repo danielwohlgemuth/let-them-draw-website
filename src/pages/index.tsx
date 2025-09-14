@@ -45,7 +45,7 @@ export default function Home() {
     setRequestsError(null);
 
     try {
-      const response = await fetch(`/api/request?userId=${encodeURIComponent(userId)}`);
+      const response = await fetch(`/api/request/${encodeURIComponent(userId)}`);
       if (!response.ok) {
         throw new Error(`Failed to fetch requests: ${response.statusText}`);
       }
@@ -112,12 +112,20 @@ export default function Home() {
 
           <div className={styles.ctas}>
             {auth.isAuthenticated ? (
-              <button
-                className={styles.primary}
-                onClick={() => auth.removeUser()}
-              >
-                Sign out
-              </button>
+              <>
+                <button
+                  className={styles.primary}
+                  onClick={() => router.push('/request')}
+                >
+                  Create Request
+                </button>
+                <button
+                  className={styles.secondary}
+                  onClick={() => auth.removeUser()}
+                >
+                  Sign out
+                </button>
+              </>
             ) : (
               <button
                 className={styles.primary}
