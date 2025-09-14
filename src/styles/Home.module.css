@@ -32,6 +32,26 @@
   flex-direction: column;
   gap: 32px;
   grid-row-start: 2;
+  text-align: center;
+  max-width: 600px;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: var(--gray-rgb);
+  margin: 0;
+  opacity: 0.8;
 }
 
 .main ol {
@@ -61,7 +81,8 @@
   gap: 16px;
 }
 
-.ctas a {
+.ctas a,
+.ctas button {
   appearance: none;
   border-radius: 128px;
   height: 48px;
@@ -79,15 +100,18 @@
   font-size: 16px;
   line-height: 20px;
   font-weight: 500;
+  font-family: inherit;
 }
 
-a.primary {
+a.primary,
+button.primary {
   background: var(--foreground);
   color: var(--background);
   gap: 8px;
 }
 
-a.secondary {
+a.secondary,
+button.secondary {
   border-color: var(--gray-alpha-200);
   min-width: 158px;
 }
@@ -110,12 +134,14 @@ a.secondary {
 
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
+  a.primary:hover,
+  button.primary:hover {
     background: var(--button-primary-hover);
     border-color: transparent;
   }
 
-  a.secondary:hover {
+  a.secondary:hover,
+  button.secondary:hover {
     background: var(--button-secondary-hover);
     border-color: transparent;
   }
@@ -144,13 +170,15 @@ a.secondary {
     flex-direction: column;
   }
 
-  .ctas a {
+  .ctas a,
+  .ctas button {
     font-size: 14px;
     height: 40px;
     padding: 0 16px;
   }
 
-  a.secondary {
+  a.secondary,
+  button.secondary {
     min-width: auto;
   }
 
