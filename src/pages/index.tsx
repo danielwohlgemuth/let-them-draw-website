@@ -163,7 +163,11 @@ export default function Home() {
               {!requestsLoading && !requestsError && requests.length > 0 && (
                 <div className={styles.requestsList}>
                   {requests.map((request) => (
-                    <div key={request.requestId} className={styles.requestCard}>
+                    <div
+                      key={request.requestId}
+                      className={styles.requestCard}
+                      onClick={() => router.push(`/artwork/${request.requestId}`)}
+                    >
                       <div className={styles.requestHeader}>
                         <span className={styles.requestId}>#{request.requestId}</span>
                         <span className={`${styles.status} ${styles[`status-${request.status}`]}`}>
