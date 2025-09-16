@@ -68,7 +68,6 @@ export default function Request() {
           'Authorization': `Bearer ${auth.user?.access_token}`
         },
         body: JSON.stringify({
-          userId: auth.user.profile.sub,
           requestId,
           requirements,
         }),

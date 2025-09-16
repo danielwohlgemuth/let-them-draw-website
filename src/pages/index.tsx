@@ -40,12 +40,12 @@ export default function Home() {
   const [requestsLoading, setRequestsLoading] = useState(false);
   const [requestsError, setRequestsError] = useState<string | null>(null);
 
-  const fetchRequests = async (userId: string) => {
+  const fetchRequests = async () => {
     setRequestsLoading(true);
     setRequestsError(null);
 
     try {
-      const response = await fetch(`/api/request/${encodeURIComponent(userId)}`, {
+      const response = await fetch(`/api/request`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${auth.user?.access_token}`
@@ -65,10 +65,10 @@ export default function Home() {
   };
 
   useEffect(() => {
-    if (!auth.isLoading && auth.isAuthenticated && auth.user?.profile?.sub) {
-      fetchRequests(auth.user.profile.sub);
+    if (!auth.isLoading && auth.isAuthenticated) {
+      fetchRequests();
     }
-  }, [auth.isLoading, auth.isAuthenticated, auth.user?.profile?.sub])
+  }, [auth.isLoading, auth.isAuthenticated])
 
   if (auth.isLoading) {
     return (
@@ -144,7 +144,7 @@ export default function Home() {
                   Error: {requestsError}
                   <button
                     className={styles.retryButton}
-                    onClick={() => auth.user?.profile?.sub && fetchRequests(auth.user.profile.sub)}
+                    onClick={() => fetchRequests()}
                   >
                     Retry
                   </button>

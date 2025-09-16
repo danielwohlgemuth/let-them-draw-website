@@ -58,7 +58,7 @@ export default function Artwork() {
     setError(null);
 
     try {
-      const response = await fetch(`/api/request/${encodeURIComponent(auth.user.profile.sub)}/${encodeURIComponent(requestId as string)}`, {
+      const response = await fetch(`/api/request/${encodeURIComponent(requestId as string)}`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${auth.user?.access_token}`
