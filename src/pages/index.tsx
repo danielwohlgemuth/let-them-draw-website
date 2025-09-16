@@ -45,7 +45,12 @@ export default function Home() {
     setRequestsError(null);
 
     try {
-      const response = await fetch(`/api/request/${encodeURIComponent(userId)}`);
+      const response = await fetch(`/api/request/${encodeURIComponent(userId)}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${auth.user?.access_token}`
+        }
+      });
       if (!response.ok) {
         throw new Error(`Failed to fetch requests: ${response.statusText}`);
       }
@@ -58,16 +63,6 @@ export default function Home() {
       setRequestsLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (!auth.isLoading && auth.isAuthenticated && (searchParams.has('code') || searchParams.has('state'))) {
-      const nextSearchParams = new URLSearchParams(searchParams.toString())
-      nextSearchParams.delete('code')
-      nextSearchParams.delete('state')
-      const paramsString = nextSearchParams.toString();
-      router.replace(paramsString ? `${pathname}?${paramsString}` : pathname);
-    }
-  }, [auth.isLoading, auth.isAuthenticated, router, pathname, searchParams])
 
   useEffect(() => {
     if (!auth.isLoading && auth.isAuthenticated && auth.user?.profile?.sub) {

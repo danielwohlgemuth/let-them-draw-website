@@ -65,6 +65,7 @@ export default function Request() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${auth.user?.access_token}`
         },
         body: JSON.stringify({
           userId: auth.user.profile.sub,
