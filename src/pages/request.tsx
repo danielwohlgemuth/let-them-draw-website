@@ -16,13 +16,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// 10 most common colors
-const COMMON_COLORS = [
+const COLORS = [
   'red', 'blue', 'green', 'yellow', 'orange',
-  'purple', 'pink', 'brown', 'black', 'white'
+  'purple', 'pink', 'brown', 'black'
 ];
 
-const SHAPES = ['square', 'circle'];
+const SHAPES = ['square', 'circle', 'hypnotic squares', 'tiled lines'];
 
 interface RequestRequirements {
   shape: string;
@@ -38,7 +37,6 @@ export default function Request() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  // Redirect to home if not authenticated
   useEffect(() => {
     if (!auth.isLoading && !auth.isAuthenticated) {
       router.push('/');
@@ -138,7 +136,7 @@ export default function Request() {
                       className={styles.radioInput}
                     />
                     <span className={styles.radioText}>
-                      {shapeOption.charAt(0).toUpperCase() + shapeOption.slice(1)}
+                      {shapeOption}
                     </span>
                   </label>
                 ))}
@@ -155,7 +153,7 @@ export default function Request() {
                 onChange={(e) => setColor(e.target.value)}
                 className={styles.select}
               >
-                {COMMON_COLORS.map((colorOption) => (
+                {COLORS.map((colorOption) => (
                   <option key={colorOption} value={colorOption}>
                     {colorOption.charAt(0).toUpperCase() + colorOption.slice(1)}
                   </option>

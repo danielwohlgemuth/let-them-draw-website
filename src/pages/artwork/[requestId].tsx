@@ -180,7 +180,7 @@ export default function Artwork() {
                 </div>
                 <div className={styles.detailRow}>
                   <span className={styles.detailLabel}>Status:</span>
-                  <span className={`${styles.status} ${styles[`status-${artworkData.status}`]}`}>
+                  <span className={`${styles.status} ${styles[`status-${artworkData.status.replace(' ', '-')}`]}`}>
                     {artworkData.status}
                   </span>
                 </div>

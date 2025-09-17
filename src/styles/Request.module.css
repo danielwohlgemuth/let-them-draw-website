@@ -106,6 +106,7 @@
 
 .radioText {
   font-size: 14px;
+  text-transform: capitalize;
   color: var(--gray-rgb);
   user-select: none;
 }

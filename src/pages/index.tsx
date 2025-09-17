@@ -165,7 +165,7 @@ export default function Home() {
                     >
                       <div className={styles.requestHeader}>
                         <span className={styles.requestId}>#{request.requestId}</span>
-                        <span className={`${styles.status} ${styles[`status-${request.status}`]}`}>
+                        <span className={`${styles.status} ${styles[`status-${request.status.replace(' ', '-')}`]}`}>
                           {request.status}
                         </span>
                       </div>
