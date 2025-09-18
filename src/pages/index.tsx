@@ -1,7 +1,7 @@
 import Head from "next/head";
-import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
 import styles from "@/styles/Home.module.css";
+import RequestCard from '../components/RequestCard';
 import { useAuth } from "react-oidc-context";
 import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -158,28 +158,7 @@ export default function Home() {
               {!requestsLoading && !requestsError && requests.length > 0 && (
                 <div className={styles.requestsList}>
                   {requests.map((request) => (
-                    <div
-                      key={request.requestId}
-                      className={styles.requestCard}
-                      onClick={() => router.push(`/artwork/${request.requestId}`)}
-                    >
-                      <div className={styles.requestHeader}>
-                        <span className={styles.requestId}>#{request.requestId}</span>
-                        <span className={`${styles.status} ${styles[`status-${request.status.replace(' ', '-')}`]}`}>
-                          {request.status}
-                        </span>
-                      </div>
-                      <div className={styles.requestDate}>
-                        {new Date(request.requestDate).toLocaleString()}
-                      </div>
-                      <div className={styles.requirements}>
-                        <strong>Requirements:</strong>
-                        <ul>
-                          <li>Shape: {request.requirements.shape}</li>
-                          <li>Color: {request.requirements.color}</li>
-                        </ul>
-                      </div>
-                    </div>
+                    <RequestCard key={request.requestId} request={request} />
                   ))}
                 </div>
               )}
