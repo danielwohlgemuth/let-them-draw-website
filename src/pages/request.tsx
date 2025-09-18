@@ -21,7 +21,7 @@ const COLORS = [
   'purple', 'pink', 'brown', 'black'
 ];
 
-const SHAPES = ['square', 'circle', 'hypnotic squares', 'tiled lines'];
+const SHAPES = ['square', 'circle', 'hypnotic squares', 'tiled lines', 'voronoi'];
 
 interface RequestRequirements {
   shape: string;
