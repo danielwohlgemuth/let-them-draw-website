@@ -91,7 +91,15 @@ export default function Artwork() {
     return (
       <div className={`${styles.page} ${geistSans.variable} ${geistMono.variable}`}>
         <main className={styles.main}>
-          <div className={styles.error}>Authentication error: {auth.error.message}</div>
+          <div className={styles.error}>
+            <p>Authentication error: {auth.error.message}</p>
+            <button
+              className={styles.refreshButton}
+              onClick={() => router.push('/')}
+            >
+              Return to Homepage
+            </button>
+          </div>
         </main>
       </div>
     );
