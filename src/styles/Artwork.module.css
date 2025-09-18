@@ -124,9 +124,6 @@
 .noImage {
   color: var(--gray-rgb);
   opacity: 0.6;
-  font-style: italic;
-  text-align: center;
-  padding: 40px;
 }
 
 .detailsCard {
