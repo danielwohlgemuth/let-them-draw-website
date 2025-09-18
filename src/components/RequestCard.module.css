@@ -63,21 +63,19 @@
   color: var(--gray-rgb);
 }
 
-.requirements strong {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-}
-
-.requirements ul {
-  margin: 0;
-  padding-left: 16px;
-  list-style-type: disc;
-}
-
-.requirements li {
-  margin-bottom: 4px;
+.requirementItem {
+  margin-bottom: 6px;
   font-family: var(--font-geist-mono);
+}
+
+.requirementLabel {
+  color: var(--gray-rgb);
+  opacity: 0.8;
+}
+
+.requirementValue {
+  font-weight: 500;
+  text-transform: capitalize;
 }
 
 @media (prefers-color-scheme: dark) {

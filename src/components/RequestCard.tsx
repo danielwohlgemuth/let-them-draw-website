@@ -31,11 +31,14 @@ export default function RequestCard({ request }: RequestCardProps) {
         {new Date(request.requestDate).toLocaleString()}
       </div>
       <div className={styles.requirements}>
-        <strong>Requirements:</strong>
-        <ul>
-          <li>Shape: {request.requirements.shape}</li>
-          <li>Color: {request.requirements.color}</li>
-        </ul>
+        <div className={styles.requirementItem}>
+          <span className={styles.requirementLabel}>Shape: </span>
+          <span className={styles.requirementValue}>{request.requirements.shape}</span>
+        </div>
+        <div className={styles.requirementItem}>
+          <span className={styles.requirementLabel}>Color: </span>
+          <span className={styles.requirementValue}>{request.requirements.color}</span>
+        </div>
       </div>
     </div>
   );
