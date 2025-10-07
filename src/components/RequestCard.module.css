@@ -41,6 +41,11 @@
   color: #1976d2;
 }
 
+.status-paid {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
 .status-in-progress {
   background: #fff3e0;
   color: #f57c00;
@@ -49,6 +54,11 @@
 .status-done {
   background: #e8f5e8;
   color: #2e7d32;
+}
+
+.status-failed {
+  background: #e8f5e8;
+  color: #e74c3c;
 }
 
 .requestDate {

@@ -21,7 +21,10 @@ const COLORS = [
   'purple', 'pink', 'brown', 'black'
 ];
 
-const SHAPES = ['square', 'circle', 'hypnotic squares', 'tiled lines', 'voronoi'];
+interface Shape {
+  shape: string;
+  price: string;
+}
 
 interface RequestRequirements {
   shape: string;
@@ -35,13 +38,49 @@ export default function Request() {
   const [color, setColor] = useState<string>('blue');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [shapes, setShapes] = useState<Shape[]>([]);
+  const [shapesLoading, setShapesLoading] = useState(true);
+  const [shapesError, setShapesError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!auth.isLoading && !auth.isAuthenticated) {
       router.push('/');
     }
   }, [auth.isLoading, auth.isAuthenticated, router]);
+
+  useEffect(() => {
+    const fetchShapes = async () => {
+      try {
+        setShapesLoading(true);
+        setShapesError(null);
+
+        const response = await fetch('/api/shapes', {
+          headers: {
+            'Authorization': `Bearer ${auth.user?.access_token}`
+          }
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch shapes');
+        }
+
+        const shapesData = await response.json();
+        setShapes(shapesData);
+
+        if (shapesData.length > 0) {
+          setShape(shapesData[0].shape);
+        }
+      } catch (error) {
+        setShapesError(error instanceof Error ? error.message : 'Failed to load shapes');
+        setShapes([]);
+      } finally {
+        setShapesLoading(false);
+      }
+    };
+
+    if (auth.isAuthenticated && auth.user?.access_token) {
+      fetchShapes();
+    }
+  }, [auth.isAuthenticated, auth.user?.access_token]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,7 +92,6 @@ export default function Request() {
 
     setIsSubmitting(true);
     setSubmitError(null);
-    setSubmitSuccess(false);
 
     try {
       const requestId = uuidv4();
@@ -71,18 +109,11 @@ export default function Request() {
         }),
       });
 
+      const data = await response.json();
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to create request');
+        throw new Error(data.error || 'Failed to create request');
       }
-
-      setSubmitSuccess(true);
-      // Reset form after successful submission
-      setTimeout(() => {
-        setShape('circle');
-        setColor('blue');
-        setSubmitSuccess(false);
-      }, 3000);
+      router.push(data.url);
     } catch (error) {
       setSubmitError(error instanceof Error ? error.message : 'Failed to create request');
     } finally {
@@ -124,23 +155,24 @@ export default function Request() {
               <label htmlFor="shape" className={styles.label}>
                 Shape
               </label>
-              <div className={styles.radioGroup}>
-                {SHAPES.map((shapeOption) => (
-                  <label key={shapeOption} className={styles.radioLabel}>
-                    <input
-                      type="radio"
-                      name="shape"
-                      value={shapeOption}
-                      checked={shape === shapeOption}
-                      onChange={(e) => setShape(e.target.value)}
-                      className={styles.radioInput}
-                    />
-                    <span className={styles.radioText}>
-                      {shapeOption}
-                    </span>
-                  </label>
-                ))}
-              </div>
+              {shapesLoading ? (
+                <div className={styles.loading}>Loading shapes...</div>
+              ) : shapesError ? (
+                <div className={styles.error}>Error loading shapes: {shapesError}</div>
+              ) : (
+                <select
+                  id="shape"
+                  value={shape}
+                  onChange={(e) => setShape(e.target.value)}
+                  className={styles.select}
+                >
+                  {shapes.map((shapeOption) => (
+                    <option key={shapeOption.shape} value={shapeOption.shape}>
+                      {shapeOption.shape} - {shapeOption.price === '0' ? 'Free' : `$${(parseInt(shapeOption.price) / 100).toFixed(2)}`}
+                    </option>
+                  ))}
+                </select>
+              )}
             </div>
 
             <div className={styles.formGroup}>
@@ -164,12 +196,6 @@ export default function Request() {
             {submitError && (
               <div className={styles.error}>
                 {submitError}
-              </div>
-            )}
-
-            {submitSuccess && (
-              <div className={styles.success}>
-                Request created successfully! You can create another request or go back to view your requests.
               </div>
             )}
 
