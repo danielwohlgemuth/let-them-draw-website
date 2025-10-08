@@ -149,7 +149,6 @@ export default function Artwork() {
       <div className={`${styles.page} ${geistSans.variable} ${geistMono.variable}`}>
         <main className={styles.main}>
           <div className={styles.header}>
-            <h1 className={styles.title}>Artwork #{artworkData.requestId}</h1>
             <button
               className={styles.backButton}
               onClick={() => router.push('/')}
@@ -183,22 +182,6 @@ export default function Artwork() {
               <h2 className={styles.sectionTitle}>Request Details</h2>
               <div className={styles.detailsCard}>
                 <div className={styles.detailRow}>
-                  <span className={styles.detailLabel}>Request ID:</span>
-                  <span className={styles.detailValue}>#{artworkData.requestId}</span>
-                </div>
-                <div className={styles.detailRow}>
-                  <span className={styles.detailLabel}>Status:</span>
-                  <span className={`${styles.status} ${styles[`status-${artworkData.status.replace(' ', '-')}`]}`}>
-                    {artworkData.status}
-                  </span>
-                </div>
-                <div className={styles.detailRow}>
-                  <span className={styles.detailLabel}>Request Date:</span>
-                  <span className={styles.detailValue}>
-                    {new Date(artworkData.requestDate).toLocaleString()}
-                  </span>
-                </div>
-                <div className={styles.detailRow}>
                   <span className={styles.detailLabel}>Shape:</span>
                   <span className={styles.detailValue}>
                     {artworkData.requirements.shape.charAt(0).toUpperCase() + artworkData.requirements.shape.slice(1)}
@@ -208,6 +191,25 @@ export default function Artwork() {
                   <span className={styles.detailLabel}>Color:</span>
                   <span className={styles.detailValue}>
                     {artworkData.requirements.color.charAt(0).toUpperCase() + artworkData.requirements.color.slice(1)}
+                  </span>
+                </div>
+                <div className={styles.detailRow}>
+                  <span className={styles.detailLabel}>Request Date:</span>
+                  <span className={styles.detailValue}>
+                    {new Date(artworkData.requestDate).toLocaleString(navigator.language || 'en-US', {
+                      day: '2-digit',
+                      month: '2-digit',
+                      year: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      hour12: true,
+                    })}
+                  </span>
+                </div>
+                <div className={styles.detailRow}>
+                  <span className={styles.detailLabel}>Status:</span>
+                  <span className={`${styles.status} ${styles[`status-${artworkData.status.replace(' ', '-')}`]}`}>
+                    {artworkData.status}
                   </span>
                 </div>
               </div>
