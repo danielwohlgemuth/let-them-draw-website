@@ -22,13 +22,9 @@ export default function RequestCard({ request }: RequestCardProps) {
       onClick={() => router.push(`/artwork/${request.requestId}`)}
     >
       <div className={styles.requestHeader}>
-        <span className={styles.requestId}>#{request.requestId}</span>
         <span className={`${styles.status} ${styles[`status-${request.status.replace(' ', '-')}`]}`}>
           {request.status}
         </span>
-      </div>
-      <div className={styles.requestDate}>
-        {new Date(request.requestDate).toLocaleString()}
       </div>
       <div className={styles.requirements}>
         <div className={styles.requirementItem}>
@@ -38,6 +34,16 @@ export default function RequestCard({ request }: RequestCardProps) {
         <div className={styles.requirementItem}>
           <span className={styles.requirementLabel}>Color: </span>
           <span className={styles.requirementValue}>{request.requirements.color}</span>
+        </div>
+        <div className={styles.requestDate}>
+          {new Date(request.requestDate).toLocaleString(navigator.language || 'en-US', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true,
+          })}
         </div>
       </div>
     </div>
