@@ -1,0 +1,115 @@
+.requestCard {
+  background: var(--gray-alpha-100);
+  border: 1px solid var(--gray-alpha-200);
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.requestCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.requestHeader {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.requestId {
+  font-family: var(--font-geist-mono);
+  font-weight: 600;
+  color: var(--gray-rgb);
+  font-size: 14px;
+}
+
+.status {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-new {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-paid {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-in-progress {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.status-done {
+  background: #e8f5e8;
+  color: #2e7d32;
+}
+
+.status-failed {
+  background: #e8f5e8;
+  color: #e74c3c;
+}
+
+.requestDate {
+  font-size: 14px;
+  color: var(--gray-rgb);
+  opacity: 0.7;
+}
+
+.requirements {
+  font-size: 14px;
+  color: var(--gray-rgb);
+}
+
+.requirementItem {
+  margin-bottom: 6px;
+  font-family: var(--font-geist-mono);
+}
+
+.requirementLabel {
+  color: var(--gray-rgb);
+  opacity: 0.8;
+}
+
+.requirementValue {
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+@media (prefers-color-scheme: dark) {
+  .requestCard {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .requestCard:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+}
+
+@media (max-width: 600px) {
+  .requestCard {
+    padding: 16px;
+  }
+
+  .requestHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .status {
+    align-self: flex-end;
+  }
+}
